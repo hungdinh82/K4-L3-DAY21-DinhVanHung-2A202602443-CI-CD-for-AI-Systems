@@ -1,0 +1,18 @@
+[Unit]
+Description=Income prediction API
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=income-api
+Group=income-api
+WorkingDirectory=/opt/income-api
+EnvironmentFile=/etc/income-api.env
+Environment=PYTHONUNBUFFERED=1
+ExecStart=/opt/income-api/.venv/bin/uvicorn src.serve:app --host 0.0.0.0 --port 8080
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

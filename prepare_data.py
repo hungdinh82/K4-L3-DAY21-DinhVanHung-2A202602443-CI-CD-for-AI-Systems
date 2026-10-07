@@ -1,5 +1,9 @@
+import certifi
+from io import BytesIO
 import pandas as pd
 import os
+import ssl
+from urllib.request import urlopen
 
 TRAIN_URL = "https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data"
 TEST_URL  = "https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.test"
@@ -22,8 +26,13 @@ CATEGORICAL_COLUMNS = ["workclass", "marital_status", "occupation", "relationshi
 
 
 def load(url: str, skiprows: int) -> pd.DataFrame:
+    """Download a CSV with certifi's CA bundle, then parse it with pandas."""
+    context = ssl.create_default_context(cafile=certifi.where())
+    with urlopen(url, context=context) as response:
+        contents = response.read()
+
     return pd.read_csv(
-        url,
+        BytesIO(contents),
         header=None,
         names=RAW_COLUMNS,
         skiprows=skiprows,
