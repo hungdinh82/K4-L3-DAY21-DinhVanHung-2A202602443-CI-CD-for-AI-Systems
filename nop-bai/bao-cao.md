@@ -27,13 +27,13 @@ HƯỚNG DẪN - đọc rồi XÓA TOÀN BỘ các khối chú thích này sau k
 
 | Lần chạy | n_estimators | learning_rate | max_depth | f1_score | accuracy |
 |---|---|---|---|---|---|
-| 1 | ___ | ___ | ___ | ___ | ___ |
-| 2 | ___ | ___ | ___ | ___ | ___ |
-| 3 | ___ | ___ | ___ | ___ | ___ |
+| 1 | 100 | 0.1 | 3 | 0.7109 | 0.8780 |
+| 2 | 50 | 0.05 | 2 | 0.6051 | 0.8460 |
+| 3 | 200 | 0.1 | 5 | 0.7149 | 0.8740 |
 
-**Bộ siêu tham số đã chọn:** `n_estimators=___`, `learning_rate=___`, `max_depth=___`.
+**Bộ siêu tham số đã chọn:** `n_estimators=200`, `learning_rate=0.1`, `max_depth=5`.
 
-**Lý do:** ___
+**Lý do:** Cấu hình lần 3 có `f1_score` cao nhất (0.7149), vượt ngưỡng 0.65 và nhỉnh hơn lần 1 (0.7109). Lần 1 có accuracy cao hơn (0.8780 so với 0.8740), cho thấy accuracy không phải chỉ số quyết định phù hợp với lớp thu nhập cao thiểu số. Cấu hình nông/chậm ở lần 2 chưa đủ năng lực học; tăng số cây và độ sâu ở lần 3 giúp cải thiện F1.
 
 <!--
 Trả lời trong phần Lý do:
@@ -80,10 +80,10 @@ Cần nêu được:
 
 | | f1_score | accuracy |
 |---|---|---|
-| Bước 2 (chỉ `train_batch1`) | ___ | ___ |
-| Bước 3 (thêm `train_batch2`) | ___ | ___ |
+| Bước 2 (chỉ `train_batch1`) | 0.7149 | 0.8740 |
+| Bước 3 (thêm `train_batch2`) | 0.7354 | 0.8820 |
 
-**Nhận xét:** ___
+**Nhận xét:** Sau khi bổ sung batch 2, F1 tăng từ 0.7149 lên 0.7354 và accuracy tăng từ 0.8740 lên 0.8820. Mức tăng nhỏ là phù hợp vì hai batch được chia ngẫu nhiên từ cùng một phân phối; giá trị cần kiểm chứng ở bước này là mô hình vẫn đạt quality gate sau retraining.
 
 <!--
 Một câu trả lời trung thực kiểu "f1 giảm 0,01 vì dữ liệu mới cùng phân phối, không mang
